@@ -4,6 +4,5 @@ RUN apt-get install vim -y
 CMD touch arun
 CMD echo "test" > arun
 RUN apt-get install -y nginx
-RUN service nginx start
 EXPOSE 3243
-CMD service nginx start
+CMD service nginx restart
