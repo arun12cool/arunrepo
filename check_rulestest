@@ -1,0 +1,123 @@
+#!/bin/bash
+
+touch /root/output.txt
+touch /root/error.txt
+
+> /root/output.txt
+> /root/error.txt
+
+    cat /etc/os-release | grep "VERSION_ID" | awk -F'=' '{print $2}' | tr -d '"' > os.txt
+    O=`cat os.txt`
+    A="2018.03"
+    B="2"
+
+    if [ $O == $B ]
+    then
+        linux2='/etc/sysctl.conf:/etc/sysctl.conf:/etc/bashrc:/etc/sysctl.conf:/etc/sysctl.conf:/etc/security/limits.conf:/etc/audit/rules.d/audit.rules:/etc/default/grub'
+        STR_MTCH='fs.suid_dumpable = 0:net.ipv4.conf.all.send_redirects = 0:umask 027:sfs.protected_hardlinks = 1:net.ipv4.conf.default.log_martians = 1:* hard core 0:/etc/issue.net -p wa -k system-locale:GRUB_CMDLINE_LINUX="audit=1'
+
+        Number=`echo "$STR_MTCH" | awk -F':' '{print NF}'`
+
+        for (( c=1; c<=$Number; c++ ));
+        do
+            PTH=`echo $linux2 | cut -d':' -f$c`
+            STR_MCH=`echo $STR_MTCH | cut -d':' -f$c`
+            grep -i "$STR_MCH" $PTH >>/dev/null
+            if [ "$?" -ne '0' ]
+            then
+                echo "$STR_MCH $PTH does not exist/incorrect" >> /root/error.txt
+            fi
+        done
+
+    elif [ $O == $A ]
+    then
+        linux2018='/etc/sysctl.conf:/etc/sysctl.conf:/etc/bashrc:/etc/sysctl.conf:/etc/sysctl.conf:/etc/security/limits.conf:/etc/audit/audit.rules'
+        STR_MTCH2='fs.suid_dumpable = 0:net.ipv4.conf.all.send_redirects = 0:umask 027:sfs.protected_hardlinks = 1:net.ipv4.conf.default.log_martians = 1:* hard core 0:/etc/issue.net -p wa -k system-locale'
+        Number=`echo "$STR_MTCH2" | awk -F':' '{print NF}'`
+        for (( c=1; c<=$Number; c++ ));
+        do
+            PTH2=`echo $linux2018 | cut -d':' -f$c`
+            STR_MCH2=`echo $STR_MTCH2 | cut -d':' -f$c`
+            grep -i "$STR_MCH2" $PTH2 >>/dev/null
+            if [ "$?" -ne '0' ]
+            then
+                echo "$STR_MCH2 $PTH2 does not exist/incorrect" >> /root/error.txt
+            fi
+        done
+
+ 	else
+	echo " Ec2 instance is using an older Linux OS version which does not have a Golden AMI"  >> /root/error.txt
+    fi
+
+if [ -s /root/error.txt ]
+then
+    echo "Ec2 instance is not using an Hardened AMI - $(hostname -i|cut -d ' ' -f2)"
+    echo "$(< /root/error.txt)"
+    exit 2
+else
+    echo "Ec2 instance is using Hardened AMI - $(hostname -i|cut -d ' ' -f2)"
+    exit 0
+fi
+
+
+
+
+contactgroups.cfg :
+
+define contactgroup {
+                contactgroup_name                     citeam
+                alias                                 citeam
+                members                               audit
+}
+
+
+contacts.cfg :
+
+define contact {
+                contact_name                          audit
+                alias                                 audit
+                host_notification_options             d,u,r,f,s
+                service_notification_options          w,u,c,r,f,s
+                email                                 arun.krishnakumar
+                host_notification_period              24x7
+                service_notification_period           24x7
+                host_notification_commands            notify-host-by-email
+                service_notification_commands         notify-service-by-email
+}
+
+
+opsworksservices.cfg :
+
+define service {
+                service_description                   opsworks.check_rules
+                check_command                         check_nrpe!check_rules
+                use                                   citeam
+		        hostgroup_name                        Opsworks.fsales-ind-services.nrpe
+}
+
+
+service_templates.cfg : 
+
+define service {
+                name                                  audit-check
+                register                              0
+                max_check_attempts                    2
+                check_interval                        10080
+                retry_interval                        1
+                notification_interval                 0
+                notification_options                  w,u,c,r
+                active_checks_enabled                 1
+                passive_checks_enabled                1
+                notifications_enabled                 1
+                check_freshness                       0
+                check_period                          24x7
+                notification_period                   24x7
+                contact_groups                        citeam
+}
+
+define service {
+                name                                  citeam
+                register                              0
+                use                                   audit-check
+		        hostgroup_name			              Opsworks
+}
