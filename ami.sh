@@ -1,6 +1,6 @@
 #!/bin/bash
 
-aws sts assume-role --role-arn arn:aws:iam::442227716440:role/fusion_app --role-session-name "freshservice-staging" > sessions.txt
+aws sts assume-role --role-arn arn:aws:iam::xxxx:role/fusion_app --role-session-name "xxxxx" > sessions.txt
 
 A=`cat sessions.txt | grep "AccessKeyId" | awk -F':' '{print $2}'|tr -d '"'|awk '{$1=$1};1'`
 S=`cat sessions.txt | grep "SecretAccessKey" | awk -F':' '{print $2}'|tr -d '"',','|awk '{$1=$1};1'`

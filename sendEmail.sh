@@ -8,9 +8,9 @@ cat /var/log/sendEmail |grep "nagios@\|helpdesk@" | grep "`date +"%b %d %H" |sed
     else
         echo "Log file is empty, there are no logs for the past half an hour"
 (
-echo "From: freshdesk_internal@freshdesk.com "
+echo "From: xxxx "
 echo " "
-echo "To: arun.krishnakumar@freshworks.com"
+echo "To: xxxxx"
 echo " "
 echo "Subject: Mails are failing - Platforms-Ocr-Prod"
 echo " "

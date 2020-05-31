@@ -6,10 +6,10 @@ for regions in "${region[@]}"; do echo "$regions"; done > /tmp/reg.txt
 #Pulling new users
 New_User_Creation()
 {
-ldapsearch -x -b "dc=freshsso,dc=com" -D "administrator@freshsso.com" -h xxxxx -w 'xxxxxxx' "(&(objectClass=group))" | grep name | cut -d ":" -f2 | tr -d ' '| grep  "^aws-" > /tmp/gp.txt
+ldapsearch -x -b "dc=freshsso,dc=com" -D "xxxx" -h xxxxx -w 'xxxxxxx' "(&(objectClass=group))" | grep name | cut -d ":" -f2 | tr -d ' '| grep  "^aws-" > /tmp/gp.txt
   for group in `cat /tmp/gp.txt`
   do
-  ldapsearch -x -b "dc=freshsso,dc=com" -D "administrator@freshsso.com" -h xxxx -w 'xxxxxx' "(&(objectClass=user)(memberOf="CN=$group,CN=Users,DC=freshsso,DC=com"))" | grep "mail\|userPrincipalName" | cut -d" " -f2 | grep "freshsso.com" |cut -d '@' -f1  >> /tmp/new.sh
+  ldapsearch -x -b "dc=freshsso,dc=com" -D "xxxx" -h xxxx -w 'xxxxxx' "(&(objectClass=user)(memberOf="CN=$group,CN=Users,DC=freshsso,DC=com"))" | grep "mail\|userPrincipalName" | cut -d" " -f2 | grep "freshsso.com" |cut -d '@' -f1  >> /tmp/new.sh
   done
   sort -u /tmp/new.sh > /tmp/new.txt
   ls /home | grep -v 'centos' | sort -u > /tmp/existing.txt
@@ -57,15 +57,15 @@ Push_Key_OPS_Works()
 
   for new1 in `cat /tmp/ldapusers.txt`
   do
-    iamusers=`ldapsearch -LLL -x -b "dc=freshsso,dc=com" -D "administrator@freshsso.com" -h xxxxx -w 'xxxxx' "(&(objectClass=user)(cn=$new1))" | grep "mail" | cut -d ' ' -f2 | cut -d '@' -f1 | tr -d '.'`
+    iamusers=`ldapsearch -LLL -x -b "dc=freshsso,dc=com" -D "xxxx" -h xxxxx -w 'xxxxx' "(&(objectClass=user)(cn=$new1))" | grep "mail" | cut -d ' ' -f2 | cut -d '@' -f1 | tr -d '.'`
 
-    ldapsearch -LLL -x -b "dc=freshsso,dc=com" -D "administrator@freshsso.com" -h xxxx -w 'xxxx' "(&(objectClass=user)(cn=$new1))" | grep memberOf | cut -d':' -f2 | cut -d',' -f1 | awk -F '=' {'print $2'} > /tmp/grp.txt
+    ldapsearch -LLL -x -b "dc=freshsso,dc=com" -D "xxx" -h xxxx -w 'xxxx' "(&(objectClass=user)(cn=$new1))" | grep memberOf | cut -d':' -f2 | cut -d',' -f1 | awk -F '=' {'print $2'} > /tmp/grp.txt
 
     #Fetching Group for an user
 
     for grp in `cat /tmp/grp.txt`
     do
-      ldapsearch -x -b "dc=freshsso,dc=com" -D "administrator@freshsso.com" -h xxxx -w 'xxxxx' "(&(objectClass=group)(cn=$grp))" | grep description | cut -d ":" -f2 | tr -d ' ' >> /tmp/acc_id.sh
+      ldapsearch -x -b "dc=freshsso,dc=com" -D "xxxx" -h xxxx -w 'xxxxx' "(&(objectClass=group)(cn=$grp))" | grep description | cut -d ":" -f2 | tr -d ' ' >> /tmp/acc_id.sh
 
       sort -u /tmp/acc_id.sh > /tmp/acc_id.txt
 
