@@ -1,8 +1,8 @@
-curl -s -u nagiosadmin:nagiosadmin\:xxxx <url> | grep -w -A 22 "dashboard alert alert-danger"
+curl -s -u \:xxxx <url> | grep -w -A 22 "dashboard alert alert-danger"
 
 grep -o -E '"id":[0-9]{0,20}' FL_2.txt | awk -F ":" '{print $2}'
 
-curl -s -u nagiosadmin:nagiosadmin\:xxxx xxxxx |grep RDS.CPUUtilization |grep host_name |cut -d'?' -f2  | cut -d'=' -f2 | cut -d'&' -f1
+curl -s -u \:xxxx xxxxx |grep RDS.CPUUtilization |grep host_name |cut -d'?' -f2  | cut -d'=' -f2 | cut -d'&' -f1
 
 ps -eo pcpu,pid,user,args  | sort -k1 -r -n | head -10
 
