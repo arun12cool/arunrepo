@@ -7,5 +7,5 @@ RUN yum -y install epel-release
 RUN yum -y update
 RUN yum -y install nginx
 ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
-/bin/sh -c echo "this is arun" > /usr/share/nginx/html/index.html
+RUN echo "this is arun" > /usr/share/nginx/html/index.html
 COPY . .
