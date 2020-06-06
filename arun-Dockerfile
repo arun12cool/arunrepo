@@ -1,0 +1,11 @@
+FROM centos
+WORKDIR /arun
+EXPOSE 80
+RUN yum update -y
+RUN yum install wget -y
+RUN yum -y install epel-release
+RUN yum -y update
+RUN yum -y install nginx
+RUN mv /Users/arunkumarkrishna/docker/index.html /usr/share/nginx/html/index.html --force
+ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
+COPY . .
