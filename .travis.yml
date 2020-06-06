@@ -9,11 +9,3 @@ before_install:
     -  docker push arun12cool/arun
 
 
-
-deploy:
-	provider: script
-	script: test.sh
-	on:
-    	branch: master
-
-
