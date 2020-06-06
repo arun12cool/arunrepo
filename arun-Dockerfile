@@ -6,6 +6,6 @@ RUN yum install wget -y
 RUN yum -y install epel-release
 RUN yum -y update
 RUN yum -y install nginx
-RUN mv /Users/arunkumarkrishna/docker/index.html /usr/share/nginx/html/index.html --force
 ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
+/bin/sh -c echo "this is arun" > /usr/share/nginx/html/index.html
 COPY . .
