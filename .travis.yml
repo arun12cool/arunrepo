@@ -1,0 +1,7 @@
+language: generic
+
+install:
+  - pip install wget
+
+script:
+  - ./build.sh
