@@ -1,11 +1,11 @@
 #!/bin/bash
 for acc_id in `cat ac.txt`
 do
-   temp_role=$(aws sts assume-role --role-arn arn:aws:iam::$acc_id:role/fusion_app --role-session-name "user-details")
+   temp_role=$(aws sts assume-role --role-arn arn:aws:iam::$acc_id:role/app --role-session-name "user-details")
     export AWS_ACCESS_KEY_ID=$(echo $temp_role | jq -r .Credentials.AccessKeyId)
     export AWS_SECRET_ACCESS_KEY=$(echo $temp_role | jq -r .Credentials.SecretAccessKey)
     export AWS_SESSION_TOKEN=$(echo $temp_role | jq -r .Credentials.SessionToken)
-aws iam put-role-policy --role-name fusion_app  --policy-name Opsworks-user-deletion --policy-document file://policy2.json
+aws iam put-role-policy --role-name app  --policy-name Opsworks-user-deletion --policy-document file://policy2.json
 sleep 7
 for j in `cat user.txt`;
 do
