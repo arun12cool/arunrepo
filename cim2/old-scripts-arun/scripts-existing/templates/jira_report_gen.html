@@ -1,0 +1,17 @@
+<html>
+<body>
+  <h2> To generate the report, select the product <h2> 
+      <form action = "/gen_jira_report" method = "POST">
+         <select name=product>
+                  <option value="Freshdesk">Freshdesk</option>
+    	 </select>
+         <select name=month>
+		{% for x in month %}
+		  <option value="{{ x }}">{{ x }}</option>
+		{% endfor %}
+	 </select>
+         <input type = "submit"/>
+      </form>
+      
+   </body>
+</html>

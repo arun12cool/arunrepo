@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Jira Report</title>
+<style>
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #659EC7;
+    color: black;
+}
+</style>
+</head>
+<body>
+   <h1>Jira Reports </h1>
+<br>
+<h2>Incidents</h2>
+<br>
+    <table id="customers">
+    <tr>
+       {% for x in colmn2 %}
+            <th>{{ x }}</th>
+       {% endfor %}
+    </tr>
+    {% for row in data2 %}
+        <tr>
+        {% for d in row %}
+             <td>{{ d }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+<br>
+<h2>Urgent Bugs [P0]:</h2> 
+<br>
+    <table id="customers">
+    <tr>
+       {% for x in colmn %}
+            <th>{{ x }}</th>
+       {% endfor %}
+    </tr>
+    {% for row in data %}
+        <tr>
+        {% for d in row %}
+             <td>{{ d }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+<br>
+<h2>High Priority Incidents Bugs [P1]:</h2>
+<br>
+    <table id="customers">
+    <tr>
+       {% for x in colmn1 %}
+            <th>{{ x }}</th>
+       {% endfor %}
+    </tr>
+    {% for row in data1 %}
+        <tr>
+        {% for d in row %}
+             <td>{{ d }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

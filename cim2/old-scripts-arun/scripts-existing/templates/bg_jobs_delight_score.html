@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Baikal report</title>
+<style>
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #659EC7;
+    color: black;
+}
+</style>
+</head>
+<body>
+   <h2>BG_Jobs Delight Score</h2>
+    <table id="customers">
+      <tr>
+       {% for x in colmn %}
+            <th>{{ x }}</th>
+       {% endfor %}
+    </tr>
+    {% for row in data %}
+        <tr>
+        {% for d in row %}
+	     <td>{{ d }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %} </table>
+
+  <h2>Falcon API - Customer Delight % Weighted Average</h2>
+    <table id="customers">
+    <tr>
+       {% for x in falcon_api_weight_col %}
+            <th>{{ x[0] }}</th>
+       {% endfor %}
+    </tr>
+    {% for row in falcon_api_weight_row %}
+        <tr>
+        {% for d in row %}
+           {% if d < 95 and d > 90 %}
+             <td style="background-color:#F9E79F">{{ d }}</td>
+           {% elif d < 90 and d > 0 %}
+             <td style="background-color:#F5B7B1">{{ d }}</td>
+           {% else %}
+             <td>{{ d }}</td>
+           {% endif %}
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+  <h2>Falcon API - Customer Delight % Minimum Average</h2>
+    <table id="customers">
+    <tr>
+       {% for x in falcon_api_min_col %}
+            <th>{{ x[0] }}</th>
+       {% endfor %}
+    </tr>
+    {% for row in falcon_api_min_row %}
+        <tr>
+        {% for d in row %}
+           {% if d < 95 and d > 90 %}
+             <td style="background-color:#F9E79F">{{ d }}</td>
+           {% elif d < 90 and d > 0 %}
+             <td style="background-color:#F5B7B1">{{ d }}</td>
+           {% else %}
+             <td>{{ d }}</td>
+ 	   {% endif %}
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+  <h2>Freshdesk - Customer Delight % Weighted Average</h2>
+    <table id="customers">
+    <tr>
+       {% for x in fd_weight_col %}
+            <th>{{ x[0] }}</th>
+       {% endfor %}
+    </tr>
+    {% for row in fd_weight_row %}
+        <tr>
+        {% for d in row %}
+           {% if d < 95 and d > 90 %}
+             <td style="background-color:#F9E79F">{{ d }}</td>
+           {% elif d < 90 and d > 0 %}
+             <td style="background-color:#F5B7B1">{{ d }}</td>
+           {% else %}
+             <td>{{ d }}</td>
+           {% endif %}
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+  <h2>Freshdesk - Customer Delight % Minimum Average</h2>
+    <table id="customers">
+    <tr>
+       {% for x in fd_min_col %}
+            <th>{{ x[0] }}</th>
+       {% endfor %}
+    </tr>
+    {% for row in fd_min_row %}
+        <tr>
+        {% for d in row %}
+           {% if d < 95 and d > 90 %}
+             <td style="background-color:#F9E79F">{{ d }}</td>
+           {% elif d < 90 and d > 0 %}
+             <td style="background-color:#F5B7B1">{{ d }}</td>
+           {% else %}
+             <td>{{ d }}</td>
+           {% endif %}
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+  <h2>Freshdesk - 5xx Error %</h2>
+    <table id="customers">
+    <tr>
+       {% for x in get_perf_5xx_col %}
+            <th>{{ x[0] }}</th>
+       {% endfor %}
+    </tr>
+    {% for row in get_perf_5xx_row %}
+        <tr>
+        {% for d in row %}
+             <td>{{ d }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<html>
+
+<body>
+
+	<form action="/bk_customer_delight_record_creator" method="post">
+	<h3> Baikal Customer Delight record update  </h3>
+         <select name=product>
+                {% for x in data %}
+                  <option value="{{ x }}">{{ x }}</option>
+                {% endfor %}                 
+         </select><br><br>
+	Name<br>
+	<input type="Name" name="name"> <br>
+         <select name=ctype>
+                  <option value="weighted_avg">Weighted Avg</option>
+                  <option value="min_avg">Minimum Avg</option>
+         </select><br><br>
+        <input type="submit" value="Submit"> <br>
+	</form>
+
+
+</body>
+
+</html>

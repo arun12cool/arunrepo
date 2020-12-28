@@ -1,0 +1,22 @@
+<html>
+<body>
+  <h2> To generate the report, select the product <h2> 
+      <form action = "/report_generate" method = "POST">
+         <select name=product>
+ 		{% for x in data %}
+                  <option value="{{ x }}">{{ x }}</option>
+		{% endfor %}                 
+    	 </select>
+         <select name=wks>
+		<option value="lastweek">Last week</option>
+		<option value="last2week">Last 2 weeks</option>
+		<option value="last3week">Last 3 weeks</option>
+		<option value="last4week">Last 4 weeks</option>
+		<option value="last5week">Last 5 weeks</option>
+		<option value="last6week">Last 6 weeks</option>
+	</select>
+         <input type = "submit"/>
+      </form>
+      
+   </body>
+</html>

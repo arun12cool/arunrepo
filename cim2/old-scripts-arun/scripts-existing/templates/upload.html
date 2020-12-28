@@ -1,0 +1,30 @@
+<html>
+<body>
+   
+      <form action = "/uploader" method = "POST" 
+         enctype = "multipart/form-data">
+         <input type = "file" name = "file" />
+         <select name=product>
+		<option value="Freshdesk">Fresdesk</option>
+	 </select>
+         <select name=sub_product>
+                  <option value="freshdesk">Freshdesk API</option>
+                  <option value="falcon_api">Falcon API</option>
+    	 </select>
+         <select name=ctype>
+                  <option value="weighted_avg">Weighted Avg</option>
+                  <option value="min_avg">Minimum Avg</option>
+         </select>
+         <select name=wks>
+                <option value="lastweek">Last week</option>
+                <option value="last2week">2nd weeks</option>
+                <option value="last3week">3rd weeks</option>
+                <option value="last4week">4th weeks</option>
+                <option value="last5week">5th weeks</option>
+                <option value="last6week">6th weeks</option>
+        </select>
+         <input type = "submit"/>
+      </form>
+      
+   </body>
+</html>

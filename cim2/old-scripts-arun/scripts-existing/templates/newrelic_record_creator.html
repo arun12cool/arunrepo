@@ -1,0 +1,32 @@
+<html>
+
+<body>
+
+	<form action="/newrelic_record_creator" method="post">
+	<h3> Newrelic record update  </h3>
+         <select name=product>
+                {% for x in data %}
+                  <option value="{{ x }}">{{ x }}</option>
+                {% endfor %}                 
+         </select><br><br>
+	Name<br>
+	<input type="Name" name="name"> <br>
+	Account ID<br>
+	<input type="Name" name="accid"> <br>
+        App Key<br>
+        <input type="Name" name="appkey"> <br>
+        App ID<br>
+        <input type="Name" name="appid"> <br>
+        Region<br>
+        <input type="Name" name="countrycode"> <br>
+         <select name=ctype>
+                  <option value="Frontend">Frontend</option>
+                  <option value="Backend">Backend</option>
+         </select><br><br>
+        <input type="submit" value="Submit"> <br>
+	</form>
+
+
+</body>
+
+</html>
